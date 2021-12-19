@@ -57,14 +57,24 @@ def count_score(board, number):
     return sum * int(number)
 
 
-def play_bingo(data):
+def play_bingo(data, stop_on_win=True):
     boards = get_boards(data)
     for number in data.split("\n")[0].split(","):
-        for board in boards:
+        for board in reversed(boards):
             play_number(board, number)
             if check_board(board):
-                return count_score(board, number)
+                if stop_on_win:
+                    return count_score(board, number)
+                elif len(boards) == 1:
+                    return count_score(board, number)
+                else:
+                    boards.remove(board)
 
 
+print("=============== PART 1 ==================")
 print("[TEST]:", play_bingo(test_data))
 print("[PROD]:", play_bingo(prod_data))
+
+print("=============== PART 2 ==================")
+print("[TEST]:", play_bingo(test_data, stop_on_win=False))
+print("[TEST]:", play_bingo(prod_data, stop_on_win=False))
