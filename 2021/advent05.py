@@ -40,13 +40,22 @@ def parse_lines(data):
     return lines
 
 
-def draw_line(matrix, p1, p2):
+def draw_line(matrix, p1, p2, diagonal=False):
     if p1.y == p2.y:
         for x in range(min(p1.x, p2.x), max(p1.x, p2.x) + 1):
             matrix[p1.y][x] += 1
     elif p1.x == p2.x:
         for y in range(min(p1.y, p2.y), max(p1.y, p2.y) + 1):
             matrix[y][p1.x] += 1
+    elif diagonal:
+        mx = 1 if p1.x < p2.x else -1
+        my = 1 if p1.y < p2.y else -1
+        d = abs(p1.x - p2.x)
+        for i in range(d + 1):
+            x = p1.x + (mx * i)
+            y = p1.y + (my * i)
+            matrix[y][x] += 1
+
     return matrix
 
 
@@ -59,14 +68,18 @@ def count_overlaps(matrix, threshold):
     return count
 
 
-def solve_matrix(m, n, data):
+def solve_matrix(m, n, data, diagonal=False):
     matrix = init_matrix(m, n, 0)
     lines = parse_lines(data)
     for line in lines:
-        draw_line(matrix, line[0], line[1])
+        draw_line(matrix, line[0], line[1], diagonal)
     return count_overlaps(matrix, 2)
 
 
 print("=============== PART 1 ==================")
 print("[TEST] Overlaps:", solve_matrix(10, 10, test_data))
 print("[PROD] Overlaps:", solve_matrix(1000, 1000, prod_data))
+
+print("=============== PART 2 ==================")
+print("[TEST] Overlaps:", solve_matrix(10, 10, test_data, diagonal=True))
+print("[PROD] Overlaps:", solve_matrix(1000, 1000, prod_data, diagonal=True))
