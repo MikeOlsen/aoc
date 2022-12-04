@@ -20,7 +20,7 @@ func main() {
 	fmt.Println("Prod:", play_part1(prod_data, false))
 
 	fmt.Println("=============== PART 2 ==================")
-	fmt.Println("Test:", play_part2(test_data, true))
+	fmt.Println("Test:", play_part2(test_data, false))
 	fmt.Println("Prod:", play_part2(prod_data, false))
 }
 func play_part1(input []string, verbose bool) int {
@@ -39,21 +39,6 @@ func play_part2(input []string, verbose bool) int {
 		errors = append(errors, findCommonItem(chunk, verbose))
 	}
 	return calculateSum(errors, verbose)
-}
-
-func retrieveError(input []string) byte {
-	fmt.Print("Batch:", input)
-out:
-	for i := 0; i < len(input[0]); i++ {
-		for j := 0; j < len(input[1]); j++ {
-			if input[0][i] == input[1][j] {
-				fmt.Println(" -> ", string(input[0][i]))
-				continue out
-			}
-		}
-	}
-	log.Fatalf("No error found")
-	return 0
 }
 
 func findCommonItem(input []string, verbose bool) byte {

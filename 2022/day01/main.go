@@ -12,8 +12,6 @@ import (
 )
 
 func main() {
-	// test_data, err := os.ReadFile("../data/test/01.txt")
-	// prod_data, err := os.ReadFile("../data/prod/01.txt")
 	test_data := common.LoadInput("test", "01")
 	prod_data := common.LoadInput("prod", "01")
 
