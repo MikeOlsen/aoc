@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"strconv"
 )
 
 const PATH string = "../../input/2024/"
@@ -35,4 +36,16 @@ func Abs(x int) int {
 		return -x
 	}
 	return x
+}
+
+func SliceAtoi(input []string) []int {
+	var result []int
+	for _, i := range input {
+		val, err := strconv.Atoi(i)
+		if err != nil {
+			panic(err)
+		}
+		result = append(result, val)
+	}
+	return result
 }

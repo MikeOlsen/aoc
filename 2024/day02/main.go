@@ -87,20 +87,8 @@ func parseReports(input string) [][]int {
 	var reports [][]int
 	for scanner.Scan() {
 		line := scanner.Text()
-		parts := sliceAtoi(strings.Fields(line))
+		parts := common.SliceAtoi(strings.Fields(line))
 		reports = append(reports, parts)
 	}
 	return reports
-}
-
-func sliceAtoi(input []string) []int {
-	var result []int
-	for _, i := range input {
-		val, err := strconv.Atoi(i)
-		if err != nil {
-			panic(err)
-		}
-		result = append(result, val)
-	}
-	return result
 }
